@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watches_ui/ui/screens/home/home_screen.dart';
+import 'package:flutter_watches_ui/ui/screens/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Watch UI',
-      home: const HomeScreen(),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }
