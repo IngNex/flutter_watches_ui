@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_watches_ui/ui/screens/sign_in/sign_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -8,6 +9,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    Future.delayed(
+      const Duration(seconds: 3),
+      () => Navigator.of(context).pushReplacement(
+        PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 800),
+          pageBuilder: (context, animation, _) {
+            return FadeTransition(opacity: animation, child: SignInScreen());
+          },
+        ),
+      ),
+    );
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -22,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 children: [
                   TweenAnimationBuilder<double>(
-                    duration: const Duration(milliseconds: 800),
+                    duration: const Duration(milliseconds: 900),
                     tween: Tween(begin: 1.0, end: 0.0),
                     curve: Curves.easeInOutBack,
                     builder: (context, value, child) {
@@ -31,10 +49,16 @@ class _SplashScreenState extends State<SplashScreen> {
                         child: Container(
                           height: 150,
                           decoration: const BoxDecoration(
-                            color: Colors.red,
+                            color: Color.fromARGB(255, 24, 241, 238),
                             shape: BoxShape.circle,
                           ),
-                          child: null,
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Image(
+                              color: Colors.black,
+                              image: AssetImage('assets/logo.png'),
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -43,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     height: 20,
                   ),
                   TweenAnimationBuilder<double>(
-                    duration: const Duration(milliseconds: 1200),
+                    duration: const Duration(milliseconds: 700),
                     tween: Tween(begin: 1.0, end: 0.0),
                     curve: Curves.easeInOutBack,
                     builder: (context, value, child) {
