@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_watches_ui/ui/screens/product/product_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,22 +20,10 @@ class HomeScreen extends StatelessWidget {
     ];
 
     final List<dynamic> navigBottom = [
-      [
-        Icons.home_rounded,
-        "Home",
-      ],
-      [
-        Icons.message_rounded,
-        "Message",
-      ],
-      [
-        Icons.shopping_cart_rounded,
-        "Cart",
-      ],
-      [
-        Icons.account_circle_rounded,
-        "Account",
-      ],
+      [Icons.home_rounded, "Home"],
+      [Icons.sms_rounded, "Message"],
+      [Icons.shopping_cart_rounded, "Cart"],
+      [Icons.account_circle_rounded, "Account"],
     ];
     return Scaffold(
       body: SafeArea(
@@ -55,12 +44,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                       color: const Color.fromARGB(255, 24, 241, 238),
                     ),
-                    child: Icon(Icons.sort),
+                    child: const Icon(Icons.sort),
                   ),
                   const CircleAvatar(
                     backgroundColor: Colors.grey,
-                    child:
-                        Image(image: AssetImage('assets/logo_maicoldev.png')),
+                    child: Image(image: AssetImage('assets/ingnex.png')),
                   )
                 ],
               ),
@@ -121,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                               color: const Color.fromARGB(255, 24, 241, 238),
                             ),
-                            child: Icon(Icons.short_text),
+                            child: const Icon(Icons.short_text),
                           ),
                         ],
                       ),
@@ -142,88 +130,113 @@ class HomeScreen extends StatelessWidget {
                       crossAxisSpacing: 15,
                       mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 5,
-                      child: Stack(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(5.0),
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(4.0)),
-                                color: Color.fromARGB(225, 247, 97, 96)),
-                            child: const Text(
-                              '-15%',
-                              style: TextStyle(color: Colors.white),
-                            ),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            transitionDuration:
+                                const Duration(milliseconds: 650),
+                            reverseTransitionDuration:
+                                const Duration(milliseconds: 650),
+                            pageBuilder: (context, animation, _) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: ProductScreen(
+                                  index: index,
+                                  product: watches[index],
+                                ),
+                              );
+                            },
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  width: 120,
-                                  child: Image(
-                                    image: AssetImage(
-                                      watches[index],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Watch Series ',
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: List.generate(
-                                      5,
-                                      (index) => const Icon(
-                                        Icons.star_sharp,
-                                        size: 18,
-                                        color: Colors.yellow,
+                        );
+                      },
+                      child: Card(
+                        elevation: 5,
+                        child: Stack(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(5.0),
+                              decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(4.0)),
+                                  color: Color.fromARGB(225, 247, 97, 96)),
+                              child: const Text(
+                                '-15%',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: 120,
+                                    child: Hero(
+                                      tag: 'watches$index',
+                                      child: Image(
+                                        image: AssetImage(
+                                          watches[index],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      '\$110.00',
+                                  const SizedBox(height: 5),
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Watch Series ',
+                                      textAlign: TextAlign.start,
                                       style: TextStyle(
-                                          color: Colors.red,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Container(
-                                          width: 50,
-                                          height: 2,
-                                          color: Colors.grey.withOpacity(0.4),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: List.generate(
+                                        5,
+                                        (index) => const Icon(
+                                          Icons.star_sharp,
+                                          size: 18,
+                                          color: Colors.yellow,
                                         ),
-                                        const Text(
-                                          '\$90.00',
-                                          style: TextStyle(color: Colors.grey),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        '\$110.00',
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Container(
+                                            width: 50,
+                                            height: 2,
+                                            color: Colors.grey.withOpacity(0.4),
+                                          ),
+                                          const Text(
+                                            '\$90.00',
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -232,30 +245,60 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(
-                    blurRadius: 8,
-                    spreadRadius: 0.5,
-                    offset: Offset(3, 3),
-                    color: Colors.grey)
-              ]),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 8,
+                      spreadRadius: 0.5,
+                      offset: Offset(3, 3),
+                      color: Colors.grey)
+                ],
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
                   navigBottom.length,
-                  (index) => Column(children: [
-                    Icon(
-                      navigBottom[index][0],
-                      size: 30,
-                      color: index == 0
-                          ? const Color.fromARGB(255, 24, 241, 238)
-                          : Colors.grey,
-                    ),
-                    Text(
-                      navigBottom[index][1],
-                      style: const TextStyle(color: Colors.grey, fontSize: 10),
-                    )
-                  ]),
+                  (index) => Column(
+                    children: [
+                      index == 1 || index == 2
+                          ? Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Icon(
+                                  navigBottom[index][0],
+                                  size: 30,
+                                  color: index == 0
+                                      ? const Color.fromARGB(255, 24, 241, 238)
+                                      : Colors.grey,
+                                ),
+                                Positioned(
+                                  top: -2,
+                                  right: -2,
+                                  child: Container(
+                                    width: 10,
+                                    height: 10,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.red,
+                                        shape: BoxShape.circle),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Icon(
+                              navigBottom[index][0],
+                              size: 30,
+                              color: index == 0
+                                  ? const Color.fromARGB(255, 24, 241, 238)
+                                  : Colors.grey,
+                            ),
+                      Text(
+                        navigBottom[index][1],
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 11),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
