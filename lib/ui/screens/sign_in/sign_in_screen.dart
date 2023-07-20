@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_watches_ui/ui/screens/home/home_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -14,7 +15,7 @@ class SignInScreen extends StatelessWidget {
           Positioned(
             top: 0,
             child: Container(
-              height: 350,
+              height: size.height * 0.4,
               width: 100,
               decoration: const BoxDecoration(
                 boxShadow: [
@@ -32,7 +33,7 @@ class SignInScreen extends StatelessWidget {
           Positioned(
             bottom: 0,
             child: Container(
-              height: 500,
+              height: size.height * 0.6,
               width: 100,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -92,16 +93,29 @@ class SignInScreen extends StatelessWidget {
             top: size.height * 0.8,
             left: 20,
             right: 20,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(36),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushReplacement(
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 800),
+                  pageBuilder: (context, animation, _) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: const HomeScreen(),
+                    );
+                  },
+                ),
               ),
-              child: const Text(
-                'Sign In',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(36),
+                ),
+                child: const Text(
+                  'Sign In',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),
